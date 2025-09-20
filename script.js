@@ -7,3 +7,9 @@ function resizeCanvas() {
 }
 resizeCanvas();
 window.addEventListener("resize", resizeCanvas);
+
+
+const rainDrops = [];
+const ripples = [];
+const lightnings  = [];
+let  flashOpacity = 0;

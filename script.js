@@ -32,3 +32,20 @@ for (let i = 0; i < 200; i++) {
     twinklePhase: phase
   });
 }
+
+function drawStars() {
+  let time =  Date.now() * 0.002;
+
+  stars.forEach(function (star) {
+     let twinkle = Math.sin(time * star.twinkleSpeed * 50 + star.twinklePhase);
+    let opacity = star.baseOpacity + 0.5 * twinkle;
+
+     if (opacity < 0)  opacity = 0;
+    if (opacity > 1)  opacity = 1;
+
+    ctx.beginPath();
+     ctx.arc(star.x,  star.y, star.radius, 0, Math.PI * 2 );
+     ctx.fillStyle = "rgba(255,255,255," + opacity + ")";
+    ctx.fill();
+  });
+}

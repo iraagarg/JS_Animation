@@ -196,3 +196,36 @@ function drawBackground() {
   ctx.fillStyle = gradient;
   ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
+
+function animate() {
+  drawBackground();
+  drawStars();
+
+
+   ctx.fillStyle = "rgba(0,0,0,0.15)";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+
+  rainDrops.forEach(drop => drop.update());
+
+  for (let i = 0; i < ripples.length; i++) {
+    ripples[i].update();
+     if (ripples[i].opacity <= 0) ripples.splice(i--, 1);
+  }
+
+
+  for (let i = 0; i < lightnings.length; i++) {
+    lightnings[i].update();
+    if (lightnings[i].opacity <= 0) lightnings.splice(i--, 1);
+  }
+
+
+   if (flashOpacity > 0) {
+     ctx.fillStyle = `rgba(255,255,255,${flashOpacity})`;
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+    flashOpacity -= 0.05;
+  }
+
+  thunder();
+   requestAnimationFrame(animate);
+}

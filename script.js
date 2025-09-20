@@ -49,3 +49,58 @@ function drawStars() {
     ctx.fill();
   });
 }
+
+class RainDrop {
+  constructor() {
+    this.reset();
+  }
+
+  reset() {
+    this.x = Math.random() * canvas.width;
+     this.y = Math.random() * -canvas.height; 
+    this.length = Math.random() * 20 + 10;
+    this.speed =  Math.random() * 4 + 4;
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.strokeStyle = "rgba(173,216,230,0.8)"; 
+    ctx.lineWidth  = 1.2;
+    ctx.moveTo( this.x, this.y);
+    ctx.lineTo (this.x,  this.y + this.length);
+    ctx.stroke();
+  }
+
+  update() {
+    this.y += this.speed;
+
+    if (this.y > canvas.height) {
+      ripples.push(new Ripple(this.x, canvas.height - 5));
+       this.reset();
+    }
+    this.draw();
+  }
+}
+
+class Ripple {
+  constructor(x, y) {
+    this.x = x;
+     this.y = y;
+    this.radius = 2;
+    this.opacity = 0.6;
+  }
+
+  draw() {
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+    ctx.strokeStyle = `rgba(173,216,230,${this.opacity})`;
+     ctx.lineWidth = 1.5;
+    ctx.stroke();
+  }
+
+  update() {
+    this.radius += 0.5;
+    this.opacity -= 0.01;
+     this.draw();
+  }
+}

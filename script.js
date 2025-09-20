@@ -188,3 +188,11 @@ function thunder() {
     }
   }
 }
+
+function drawBackground() {
+  const gradient = ctx.createLinearGradient(0, 0, 0, canvas.height);
+   gradient.addColorStop(0, "#000000");
+  gradient.addColorStop(1, "#0b0d27ff");
+  ctx.fillStyle = gradient;
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+}

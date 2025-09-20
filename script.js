@@ -229,3 +229,12 @@ function animate() {
   thunder();
    requestAnimationFrame(animate);
 }
+
+window.addEventListener("click", () => {
+   const rainSound = document.getElementById("rainSound");
+  rainSound.volume =  0.4;
+  rainSound.play();
+}, { once: true });
+
+
+animate();

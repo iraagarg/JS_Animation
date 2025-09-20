@@ -151,3 +151,40 @@ class Lightning {
 for (let i = 0; i < 400; i++) {
   rainDrops.push(new RainDrop());
 }
+
+function thunder() {
+   if (Math.random() > 0.997) {
+    lightnings.push(new Lightning());
+     flashOpacity = 0.8;
+
+    const baseSound = document.getElementById("thunderSound");
+    const rumbles = Math.floor(Math.random() * 3) + 2;
+
+    for (let i = 0; i < rumbles; i++) {
+      const delay = Math.random() * 2000 + i * 400 + 300;
+      setTimeout(() => {
+        const thunder = baseSound.cloneNode();
+        thunder.volume = 0;
+        thunder.play();
+
+        let v = 0;
+        const fadeIn = setInterval(() => {
+          if (v >= 0.7) {
+            clearInterval(fadeIn);
+            const fadeOut = setInterval(() => {
+              thunder.volume -= 0.02;
+              if (thunder.volume <= 0.05) {
+                thunder.pause();
+                clearInterval(fadeOut);
+              }
+            }, 150);
+          }
+           else {
+            v += 0.05;
+            thunder.volume = v;
+          }
+        }, 150);
+      }, delay);
+    }
+  }
+}

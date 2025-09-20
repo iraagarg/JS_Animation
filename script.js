@@ -104,3 +104,50 @@ class Ripple {
      this.draw();
   }
 }
+
+class Lightning {
+  constructor() {
+    this.segments = [];
+     this.opacity = 1;
+    this.createBolt();
+  }
+
+  createBolt() {
+    let x = Math.random() * canvas.width;
+    let y = 0;
+    this.segments.push({ x, y });
+
+
+    while (y < canvas.height * 0.8) {
+      x += (Math.random() - 0.5) * 100;
+      y += Math.random() * 40 + 20;
+      this.segments.push({ x, y });
+    }
+  }
+
+   draw() {
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = `rgba(255,255,255,${this.opacity})`;
+     ctx.lineWidth  = 2;
+     ctx.shadowBlur = 20;
+    ctx.shadowColor =  "rgba(255,255,255,0.8)";
+
+    ctx.moveTo(this.segments[0].x, this.segments[0].y);
+    for (let i = 1; i < this.segments.length;  i++) {
+      ctx.lineTo(this.segments[i].x, this.segments[i].y);
+    }
+
+    ctx.stroke();
+    ctx.restore();
+  }
+
+  update() {
+     this.opacity -=  0.02;
+    this.draw();
+  }
+}
+
+for (let i = 0; i < 400; i++) {
+  rainDrops.push(new RainDrop());
+}
